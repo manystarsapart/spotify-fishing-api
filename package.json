@@ -1,0 +1,28 @@
+{
+  "name": "spotify-fishing-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manystarsapart/spotify-fishing-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manystarsapart/spotify-fishing-api/issues"
+  },
+  "homepage": "https://github.com/manystarsapart/spotify-fishing-api#readme",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "spotify-web-api-node": "^5.0.2"
+  }
+}
