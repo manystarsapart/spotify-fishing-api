@@ -27,7 +27,17 @@ app.use(rateLimit({
 refreshSpotifyToken();
 setInterval(refreshSpotifyToken, 3600000);
 
-// endpoint
+
+app.listen(port, () => {
+  console.log(`🎣 Spotify Fishing API ready at http://localhost:${port}`);
+});
+
+
+
+
+// ========================================
+
+// endpoint 1
 app.get('/fish/:market', async (req, res) => {
   const market = req.params.market;
 
@@ -66,9 +76,42 @@ app.get('/fish/:market', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`🎣 Spotify Fishing API ready at http://localhost:${port}`);
+// ========================================
+
+// endpoint 2
+app.get('/fish/:market/:genre', async (req, res) => {
+  const market = req.params.market;
+  const genre = req.params.genre;
+
+  try {
+  
+    const selectedGenre = selectRandomGenre(genre);
+
+    const track = await searchRepresentativeTrack(genre, market);
+    if (!track) {
+      return res.status(404).json({ error: 'No track found for genre' });
+    }
+ 
+    const caughtFish = {
+      genre: genre,
+      representative_track_name: track.name,
+      representative_track_main_artist: track.artists[0].name,
+      representative_track_album_name: track.album.name,
+      representative_track_popularity: track.popularity,
+      timestamp: new Date().toISOString(),
+    };
+
+    res.json(caughtFish);
+
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      error: 'Failed to fish',
+      message: error.message
+    });
+  }
 });
+
 
 
 
